@@ -1,3 +1,4 @@
+// NOTE use case for consistency for the team standard
 const ALWAYS = 'always'
 const NEVER = 'never'
 const ERROR = 2
@@ -18,6 +19,8 @@ module.exports = {
     ecmaVersion: 2020
   },
   rules: {
+    // In production no console.log:
+    // No space after function paramater
     'no-unused-vars': PROD ? ERROR : WARN,
     'no-console': PROD ? ERROR : WARN,
     'no-debugger': PROD ? ERROR : WARN,

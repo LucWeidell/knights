@@ -12,7 +12,7 @@ Startup.ConfigureGlobalMiddleware(app)
 Startup.ConfigureRoutes(app)
 
 // Connect to AtlasDB
-DbContext.connect()
+// DbContext.connect() (commented out today because no db)
 
 // Start Server
 app.listen(port, () => {
