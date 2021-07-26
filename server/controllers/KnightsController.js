@@ -1,6 +1,5 @@
-import knights from '../..';
-import { knightsService } from '../services/KnightsService';
-import BaseController from '../utils/BaseController';
+import { knightsService } from '../services/KnightsService'
+import BaseController from '../utils/BaseController'
 
 export class KnightsController extends BaseController {
   constructor() {
@@ -11,8 +10,8 @@ export class KnightsController extends BaseController {
       // in the URL becomes the value of that variable
       .get('/:id', this.getByID)
       .post('', this.create)
-      .delete('/:id')
-      .put('/:id')
+      .delete('/:id', this.delete)
+      .put('/:id', this.edit)
   }
 
   // all express route handles get: req, res, next
@@ -28,7 +27,7 @@ export class KnightsController extends BaseController {
   getByID(req, res, next) {
     try {
       const knight = knightsService.getById(req.params.id)
-      res.send('wat')
+      res.send(knight)
     } catch (error) {
       next(error)
     }
@@ -47,6 +46,7 @@ export class KnightsController extends BaseController {
   delete(req, res, next) {
     try {
       knightsService.delete(req.params.id)
+      res.send('delorted')
     } catch (error) {
       next(error)
     }

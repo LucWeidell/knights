@@ -1,8 +1,7 @@
-import { fakeDb } from '../models/fakeDb'
+import { fakeDb } from '../db/fakeDb'
 import { BadRequest } from '../utils/Errors'
 
 class KnightsService {
-
   getAll() {
     return fakeDb.knights
   }
@@ -21,26 +20,27 @@ class KnightsService {
   }
 
   delete(id) {
-    let index = fakeDb.knights.findIndex(k => k.id.toString() === id)
+    const index = fakeDb.knights.findIndex(k => k.id.toString() === id)
     if (index === -1) {
-      throw BadRequest('Invalid Index')
+      throw new BadRequest('Invalid Index')
     }
     fakeDb.knights.splice(index, 1)
   }
 
   edit(body) {
-    // const old = this.getById(body.id)
-    // for (const key in body) {
-    //   old[key] = body[key]
-    // }
-    let old = this.getById(body.id)
-    old = { ...old, ...body }
-    this.delete(old.id)
-    fakeDb.knights.push(old)
-    return old
+    const old = this.getById(body.id)
+    for (const key in body) {
+      old[key] = body[key]
+    }
+      return old
+    }
+    // let old = this.getById(body.id)
+    // old = { ...old, ...body }
+    // this.delete(old.id)
+    // fakeDb.knights.push(old)
+    // return old
     // tomorrow
     // let knight = dbContext.knight.findOneAndUpdate({_id: body.id}, body)
   }
-}
 
 export const knightsService = new KnightsService()
